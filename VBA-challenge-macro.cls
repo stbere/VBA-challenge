@@ -1,0 +1,63 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "ThisWorkbook"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+Sub VBA_challenge()
+    For Each WS In Worksheets
+        WS.Activate
+        WS.Range("I1").Value = "Ticker"
+        WS.Range("J1").Value = "Yearly Change"
+        WS.Range("K1").Value = "Percent Change"
+        WS.Range("L1").Value = "Total Stock Volume"
+        
+        TotalVolume = 0
+        iPointer = 2
+        cPointer = 2
+        
+        LastRow = WS.Cells(Rows.Count, "A").End(xlUp).Row
+        
+        For i = 2 To LastRow
+            If WS.Cells(i + 1, "A").Value <> WS.Cells(i, "A").Value Then
+                TotalVolume = TotalVolume + WS.Cells(i, "G").Value
+                StartPrice = WS.Cells(cPointer, "C").Value
+                EndingPrice = WS.Cells(i, "F").Value
+                
+                Change = EndingPrice - StartPrice
+                
+                WS.Cells(iPointer, "I").Value = WS.Cells(i, "A").Value
+                
+                WS.Cells(iPointer, "J").Value = Change
+                
+                WS.Cells(iPointer, "K").Value = "%" & (Change / StartPrice * 100)
+                
+                WS.Cells(iPointer, "L").Value = TotalVolume
+                
+                If Change > 0 Then
+                    WS.Cells(iPointer, "J").Interior.ColorIndex = 4
+                ElseIf Change < 0 Then
+                    WS.Cells(iPointer, "J").Interior.ColorIndex = 3
+                Else
+                    WS.Cells(iPointer, "J").Interior.ColorIndex = 2
+                End If
+                
+                    iPointer = iPointer + 1
+                    
+                   cPointer = i + 1
+                   
+                Else
+                
+                    TotalVolume = TotalVolume + WS.Cells(i, "G").Value
+                    
+                End If
+                
+            Next i
+            
+        Next WS
+                      
+End Sub
+
