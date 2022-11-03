@@ -1,33 +1,53 @@
-Sub alphabetical_testing():
-
-    'Create a script that loops through all the stocks for one year and outputs the following information
-        'Dim WS_Count As Integer
-         '   Dim ws As Worksheet
-        Dim LastRow As Long
-        'Set WS_Count equal to the number of worksheets in the active workbook
-                'WS_Count = ActiveWorkbook.Worksheets.Count
-    
-
-        'Determine Last Row of Each Worksheet
-            LastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
-            
+Sub VBA_challenge()
+    For Each WS In Worksheets
+        WS.Activate
+        WS.Range("I1").Value = "Ticker"
+        WS.Range("J1").Value = "Yearly Change"
+        WS.Range("K1").Value = "Percent Change"
+        WS.Range("L1").Value = "Total Stock Volume"
         
-        'Begin the loop
-        For i = 1 To 100
-            Cells(a1).Value = "ticker"
-            Cells(c1, f1).Value = "yearly change"
-            Cells().Value = "percentage change"
-            
-        Next i
+        TotalVolume = 0
+        iPointer = 2
+        cPointer = 2
         
-    'Ticker Symbol
-    
-    'Yearly change from the opening price at beginning of a given year to the closing price at end of that year
-    
-    'Percentage change from opening price at beginning of a given year to closing price at end of that year
-    
-    'Total stock volume of the stock
-    
-    'Use conditional formatting that highlights positive change in green and negative change in red
-
+        LastRow = WS.Cells(Rows.Count, "A").End(xlUp).Row
+        
+        For i = 2 To LastRow
+            If WS.Cells(i + 1, "A").Value <> WS.Cells(i, "A").Value Then
+                TotalVolume = TotalVolume + WS.Cells(i, "G").Value
+                StartPrice = WS.Cells(cPointer, "C").Value
+                EndingPrice = WS.Cells(i, "F").Value
+                
+                Change = EndingPrice - StartPrice
+                
+                WS.Cells(iPointer, "I").Value = WS > Cells(i, "A").Value
+                
+                WS.Cells(iPointer, "J").Value = Change
+                
+                WS.Cells(iPointer, "K").Value = "%" & (Change / StartPrice * 100)
+                
+                WS.Cells(iPointer, "L").Value = TotalVolume
+                
+                If Change > 0 Then
+                    WS.Cells(iPointer, "J").Interior.ColorIndex = 4
+                ElseIf Change < 0 Then
+                    WS.Cells(iPointer, "J").Interior.ColorIndex = 3
+                Else
+                    WS.Cells(iPointer, "J").Interior.ColorIndex = 2
+                End If
+                
+                    iPointer = iPointer + 1
+                    
+                   cPointer = i + 1
+                   
+                Else
+                
+                    TotalVolume = TotalVolume + WS.Cells(i, "G").Value
+                    
+                End If
+                
+            Next i
+            
+        Next WS
+                      
 End Sub
