@@ -1,5 +1,7 @@
 # VBA-challenge
 For TCC-VIRT-DATA-PT-10-2022-U-LOLC-MTTH
+
+
 Instructions
 Create a script that loops through all the stocks for one year and outputs the following information:
 
