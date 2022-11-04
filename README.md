@@ -49,4 +49,4 @@ You are allowed to miss up to two Challenge assignments and still earn your cert
 Comments are disabled for graded submissions in Bootcamp Spot. If you have questions about your feedback, please notify your instructional staff or your Student Success Manager. If you would like to resubmit your work for an additional review, you can use the Resubmit Assignment button to upload new links. You may resubmit up to three times for a total of four submissions.
 
 Additional information: 
-![vba-challenge screenshot of the results](vba-challenge_results.screenshots.PNG)
+![vba-challenge screenshot of the results](vba-challenge_results.screenshots2.PNG)
